@@ -1,0 +1,16 @@
+<aura:component implements = "forceCommunity:layout,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access = "global">
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_4-of-4 slds-align_absolute-center">
+            <lightning:buttonGroup>
+                <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small"
+                                name = "login"
+                                label = "Login"
+                                onclick = "{!c.onLogin}"/>
+                <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small"
+                                name = "create"
+                                label = "Create a Form"
+                                onclick = "{!c.onForm}"/>
+            </lightning:buttonGroup>
+        </div>
+    </div>
+</aura:component>
