@@ -125,28 +125,30 @@ public class PageFormController {
     @AuraEnabled
     public static ContactWithAccount getAssignedContact() {
         ContactWithAccount contactWithAccount = new ContactWithAccount();
-        List<User> userList = new List<User>();
-        userList = [
-            SELECT UserName, ContactId
-            FROM User
-            WHERE UserName =: UserInfo.getUsername()
-        ];
-        List<Contact> contactList = new List<Contact>();
-        contactList = [
-            SELECT FirstName, LastName, Email__c, AccountId
-            FROM Contact
-            WHERE Id =: userList[0].ContactId
-        ];
-        List<Account> accountList = new List<Account>();
-        accountList = [
-            SELECT Name, FederalTaxId__c
-            FROM Account
-            WHERE Id =: contactList[0].AccountId
-        ];
-        contactWithAccount.attachIds.addAll(getAttachIds(contactList[0].Id));
-        contactWithAccount.contact = contactList[0];
-        contactWithAccount.account = accountList[0];
-        contactWithAccount.recordId = contactList[0].Id;
+        if (!checkUserProfile()) {
+            List<User> userList = new List<User>();
+            userList = [
+                SELECT UserName, ContactId
+                FROM User
+                WHERE UserName =: UserInfo.getUsername()
+            ];
+            List<Contact> contactList = new List<Contact>();
+            contactList = [
+                SELECT FirstName, LastName, Email__c, AccountId
+                FROM Contact
+                WHERE Id =: userList[0].ContactId
+            ];
+            List<Account> accountList = new List<Account>();
+            accountList = [
+                SELECT Name, FederalTaxId__c
+                FROM Account
+                WHERE Id =: contactList[0].AccountId
+            ];
+            contactWithAccount.attachIds.addAll(getAttachIds(contactList[0].Id));
+            contactWithAccount.contact = contactList[0];
+            contactWithAccount.account = accountList[0];
+            contactWithAccount.recordId = contactList[0].Id;
+        }
         return contactWithAccount;
     }
     private static Set<Id> getAttachIds(Id contactId) {
