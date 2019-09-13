@@ -2,11 +2,11 @@
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}"/>
     <aura:attribute name = "accountAndContact" type = "Object" access = "private"/>
     <aura:attribute name = "fileToBeUploaded" type = "Object" access = "private"/>
-    <aura:attribute name = "isDisabled" type = "Boolean" default = "false"/>
-    <aura:attribute name = "executeBtn" type = "String" default = "Insert"/>
-    <aura:attribute name = "fileIdsExistList" type = "Id[]"/>
-    <aura:attribute name = "deletedIdsList" type = "Id[]"/>
-    <aura:attribute name = "fileNameExistList" type = "String[]"/>
+    <aura:attribute name = "isDisabled" type = "Boolean" default = "false" access = "private"/>
+    <aura:attribute name = "executeBtn" type = "String" default = "Insert" access = "private"/>
+    <aura:attribute name = "fileIdsExistList" type = "Id[]" access = "private"/>
+    <aura:attribute name = "deletedIdsList" type = "Id[]" access = "private"/>
+    <aura:attribute name = "fileNameExistList" type = "String[]" access = "private"/>
     <aura:attribute name = "fileNameList" type = "String[]"/>
     <aura:attribute name = "base64DataList" type = "String[]"/>
     <aura:attribute name = "contentTypeList" type = "String[]"/>
