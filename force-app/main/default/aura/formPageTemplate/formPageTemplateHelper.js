@@ -91,5 +91,17 @@
         component.set("v.fileIdsExistList", fileIds);
         component.set("v.fileNameExistList", fileNames);
         component.set("v.deletedIdsList", deletedIds);
+    },
+
+    handleShow: function (component, event) {
+        var spinner = component.find("mySpinner");
+        $A.util.removeClass(spinner, "slds-hide");
+        $A.util.addClass(spinner, "slds-show");
+    },
+
+    handleHide: function (component, event) {
+        var spinner = component.find("mySpinner");
+        $A.util.removeClass(spinner, "slds-show");
+        $A.util.addClass(spinner, "slds-hide");
     }
 })

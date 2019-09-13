@@ -54,7 +54,7 @@
                             <lightning:input aura:id = "file-input" type = "file"
                                             files = "{!v.fileToBeUploaded}"
                                             onchange = "{!c.onFileUploaded}"
-                                            accept = ".txt, .jpg, .jpeg, .png"
+                                            accept = ".txt, .jpg, .jpeg, .png, .xml"
                                             label = "Driver License"
                                             name = "fileDriverLicense"
                                             multiple = "false"/>
@@ -63,7 +63,7 @@
                             <lightning:input aura:id = "file-input" type = "file"
                                             files = "{!v.fileToBeUploaded}"
                                             onchange = "{!c.onFileUploaded}"
-                                            accept = ".txt, .jpg, .jpeg, .png"
+                                            accept = ".txt, .jpg, .jpeg, .png, .xml"
                                             label = "Resume"
                                             name = "fileResume"
                                             multiple = "false"/>
