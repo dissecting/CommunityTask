@@ -203,6 +203,7 @@ public without sharing class PageFormController {
 
             contactWithAccount.contact = contactList[0];
             contactWithAccount.account = accountList[0];
+            contactWithAccount.recordId = contactList[0].Id;
         }
 
         return contactWithAccount;
@@ -250,6 +251,8 @@ public without sharing class PageFormController {
         public Account account { get; set; }
         @AuraEnabled
         public Contact contact { get; set; }
+        @AuraEnabled
+        public Id recordId { get; set; }
         @AuraEnabled
         public List<Id> attachmentIdsList { get; set; }
         @AuraEnabled

@@ -8,8 +8,10 @@
                 component.set("v.accountAndContact", response.getReturnValue());
                 component.set("v.fileNameExistList", response.getReturnValue().attachmentNamesList);
                 component.set("v.fileIdsExistList", response.getReturnValue().attachmentIdsList);
-                component.set("v.isDisabled", true);
-                component.set("v.executeBtn", "Update");
+                if (response.getReturnValue().recordId != undefined) {
+                    component.set("v.isDisabled", true);
+                    component.set("v.executeBtn", "Update");
+                }
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 component.find('notifLib').showToast({
