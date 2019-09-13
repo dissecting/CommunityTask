@@ -158,7 +158,7 @@ public without sharing class PageFormController {
             Username = accountAndContact.contact.Email__c.right(70) + '.' + aliasName,
             CommunityNickname = nickName,
             ProfileId = profileList[0].Id,
-            IsActive = false
+            IsActive = true
         );
         insert newUser;
     }
