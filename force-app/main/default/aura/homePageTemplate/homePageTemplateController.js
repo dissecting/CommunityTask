@@ -1,7 +1,8 @@
 ({
-    onLogin : function(component, event, helper) {
-        helper.handleLogin(component, event, helper);
+    doInit : function(component, event, helper) {
+        helper.handleInit(component, event, helper);
     },
+
     onForm : function(component, event, helper) {
         helper.handleForm(component, event, helper);
     }

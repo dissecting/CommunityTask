@@ -1,89 +1,126 @@
-<aura:component controller = "PageFormController" implements = "forceCommunity:layout,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access = "global">
+<aura:component controller = "PageFormController" implements = "forceCommunity:layout, forceCommunity:availableForAllPageTypes" access = "global">
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}"/>
-    <aura:attribute name = "account" type = "Account" default = "{'sobjectType': 'account','Name': '', 'FederalTaxId__c': ''}"/>
-    <aura:attribute name = "contact" type = "Contact" default = "{'sobjectType': 'contact','FirstName': '', 'LastName': '','Email__c': '','AccountId': ''}"/>
-    <aura:attribute name = "recordId" type = "Id"/>
-    <aura:attribute name = "fileIds" type = "Id[]"/>
-    <aura:attribute name = "accept" type = "List" default = "['.txt', '.jpg', '.jpeg', '.png']"/>
-    <aura:attribute name = "multiple" type = "Boolean" default = "true"/>
-    <aura:attribute name = "disabled" type = "Boolean" default = "false"/>
-    <aura:attribute name = "isError" type = "Boolean" default = "false"/>
-    <aura:attribute name = "isConfirm" type = "Boolean" default = "false"/>
+    <aura:attribute name = "accountAndContact" type = "Object" access = "private"/>
+    <aura:attribute name = "fileToBeUploaded" type = "Object" access = "private"/>
     <aura:attribute name = "isDisabled" type = "Boolean" default = "false"/>
     <aura:attribute name = "executeBtn" type = "String" default = "Insert"/>
-    <aura:attribute name = "msg" type = "String"/>
+    <aura:attribute name = "fileIdsExistList" type = "Id[]"/>
+    <aura:attribute name = "deletedIdsList" type = "Id[]"/>
+    <aura:attribute name = "fileNameExistList" type = "String[]"/>
+    <aura:attribute name = "fileNameList" type = "String[]"/>
+    <aura:attribute name = "base64DataList" type = "String[]"/>
+    <aura:attribute name = "contentTypeList" type = "String[]"/>
+    <lightning:notificationsLibrary aura:id = "notifLib"/>
+    <lightning:spinner aura:id = "mySpinner" class = "slds-hide"/>
     <div class = "slds-grid slds-wrap">
-        <div class = "slds-align_absolute-center">
-            <aura:if isTrue = "{!v.isError}">
-                <ui:message title = "Error" severity = "error" closable = "true">
-                    {!v.msg}
-                </ui:message>
-            </aura:if>
-            <aura:if isTrue = "{!v.isConfirm}">
-                <ui:message title = "Confirmation" severity = "confirm" closable = "true">
-                    {!v.msg}
-                </ui:message>
-            </aura:if>
-        </div>
         <div class = "slds-col slds-size_4-of-4 slds-align_absolute-center">
             <article class = "slds-card">
                 <div class = "slds-m-around--large">
-                    <h3>Please enter next information!</h3>
-                    <div class = "slds-form-element slds-is-required" style = "margin-top:5px">
-                        <label class = "slds-form-element__label">
-                            <abbr class = "slds-required" title = "required">*</abbr>Company Name
-                        </label>
-                        <ui:inputText class = "slds-input" value = "{!v.account.Name}"/>
+                    <span class = "slds-text-title">Please enter next information!</span>
+                    <div class = "slds-form-element slds-is-required">
+                        <lightning:input class = "slds-input" name = "inputCompanyName"
+                                    value = "{!v.accountAndContact.account.Name}"
+                                    required = "true"
+                                    label = "Company Name"/>
                     </div>
-                    <div class = "slds-form-element slds-is-required" style = "margin-top:5px">
-                        <label class = "slds-form-element__label">
-                            <abbr class = "slds-required" title = "required">*</abbr>Federal Tax Id
-                        </label>
-                        <ui:inputText class = "slds-input" value = "{!v.account.FederalTaxId__c}" disabled = "{!v.isDisabled}"/>
+                    <div class = "slds-form-element slds-is-required">
+                        <lightning:input class = "slds-input" name = "inputFederalTaxId"
+                                    value = "{!v.accountAndContact.account.FederalTaxId__c}"
+                                    required = "true"
+                                    label = "Federal Tax Id"
+                                    disabled = "{!v.isDisabled}"/>
                     </div>
-                    <div class = "slds-form-element" style = "margin-top:2px">
-                        <label class = "slds-form-element__label">
-                            <abbr class = "slds-required" title = "required">*</abbr>First Name
-                        </label>
-                        <ui:inputText class = "slds-input" value = "{!v.contact.FirstName}"/>
+                    <div class = "slds-form-element slds-is-required">
+                        <lightning:input class = "slds-input" name = "inputFirstName"
+                                    value = "{!v.accountAndContact.contact.FirstName}"
+                                    required = "true"
+                                    label = "First Name"/>
                     </div>
-                    <div class = "slds-form-element" style = "margin-top:2px">
-                        <label class = "slds-form-element__label">
-                            <abbr class = "slds-required" title = "required">*</abbr>Last Name
-                        </label>
-                        <ui:inputText class = "slds-input" value = "{!v.contact.LastName}"/>
+                    <div class = "slds-form-element slds-is-required">
+                        <lightning:input class = "slds-input" name = "inputLastName"
+                                    value = "{!v.accountAndContact.contact.LastName}"
+                                    required = "true"
+                                    label = "Last Name"/>
                     </div>
-                    <div class = "slds-form-element" style = "margin-top:2px">
-                        <label class="slds-form-element__label">
-                            <abbr class="slds-required" title = "required">*</abbr>Email Address
-                        </label>
-                        <ui:inputEmail class = "slds-input" value = "{!v.contact.Email__c}" disabled = "{!v.isDisabled}"/>
+                    <div class = "slds-form-element slds-is-required">
+                        <lightning:input class = "slds-input" name = "inputEmail"
+                                    value = "{!v.accountAndContact.contact.Email__c}"
+                                    required = "true"
+                                    label = "Email Address"
+                                    disabled = "{!v.isDisabled}"/>
                     </div>
-                    <lightning:buttonGroup>
-                        <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small slds-align_absolute-center"
-                                name = "execute"
-                                label = "{!v.executeBtn}"
-                                onclick = "{!c.onInsert}"/>
-                        <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small slds-align_absolute-center"
-                                name = "logout"
-                                label = "Logout"
-                                onclick = "{!c.onLogout}"/>
-                    </lightning:buttonGroup>
-                    <lightning:fileUpload  name = "driverLicense"
-                           label = "Driver License"
-                           multiple = "{!v.multiple}"
-                           accept = "{!v.accept}"
-                           disabled = "{!v.disabled}"
-                           recordId = "{!v.recordId}"/>
-                    <lightning:fileUpload  name = "resume"
-                           label = "Resume"
-                           multiple = "{!v.multiple}"
-                           accept = "{!v.accept}"
-                           disabled = "{!v.disabled}"
-                           recordId = "{!v.recordId}"/>
-                    <aura:iteration items = "{!v.fileIds}" var = "fileId">
-                        <lightning:fileCard fileId = "{!fileId}" description = "{!fileId}"/>
-                    </aura:iteration>
+                    <div class = "slds-box">
+                        <div class = "slds-grid slds-wrap">
+                            <lightning:input aura:id = "file-input" type = "file"
+                                            files = "{!v.fileToBeUploaded}"
+                                            onchange = "{!c.onFileUploaded}"
+                                            accept = ".txt, .jpg, .jpeg, .png"
+                                            label = "Driver License"
+                                            name = "fileDriverLicense"
+                                            multiple = "false"/>
+                        </div>
+                        <div class = "slds-grid slds-wrap">
+                            <lightning:input aura:id = "file-input" type = "file"
+                                            files = "{!v.fileToBeUploaded}"
+                                            onchange = "{!c.onFileUploaded}"
+                                            accept = ".txt, .jpg, .jpeg, .png"
+                                            label = "Resume"
+                                            name = "fileResume"
+                                            multiple = "false"/>
+                        </div>
+                        <div class = "slds-grid slds-wrap">
+                            <div class = "slds-col slds-size_1-of-2">
+                                <aura:iteration items = "{!v.fileNameExistList}" var = "fileName">
+                                    <div class = "slds-form-element">
+                                        <lightning:button label = "{!fileName}"
+                                                        iconName = "utility:download"
+                                                        iconPosition = "left"
+                                                        variant = "brand"/>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                            <div class = "slds-col slds-size_1-of-2">
+                                <aura:iteration items = "{!v.fileIdsExistList}" var = "fileId" indexVar = "index">
+                                    <div class = "slds-form-element">
+                                        <lightning:button label = "Delete"
+                                                        tabindex = "{!index}"
+                                                        iconName = "utility:download"
+                                                        iconPosition = "left"
+                                                        variant = "destructive"
+                                                        onclick = "{!c.onDelete}"/>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                            <div class = "slds-col slds-size_1-of-2">
+                                <aura:iteration items = "{!v.fileNameList}" var = "fileName">
+                                    <div class = "slds-form-element">
+                                        <lightning:button label = "{!fileName}"
+                                                        iconName = "utility:download"
+                                                        iconPosition = "left"
+                                                        variant = "brand"/>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                            <div class = "slds-col slds-size_1-of-2">
+                                <aura:iteration items = "{!v.fileNameList}" var = "fileName" indexVar = "index">
+                                    <div class = "slds-form-element">
+                                        <lightning:button label = "Delete"
+                                                        tabindex = "{!index}"
+                                                        iconName = "utility:download"
+                                                        iconPosition = "left"
+                                                        variant = "destructive"
+                                                        onclick = "{!c.onRemove}"/>
+                                    </div>
+                                </aura:iteration>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "slds-align_absolute-center">
+                        <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small"
+                                    name = "execute"
+                                    label = "{!v.executeBtn}"
+                                    onclick = "{!c.onInsert}"/>
+                    </div>
                 </div>
             </article>
         </div>
