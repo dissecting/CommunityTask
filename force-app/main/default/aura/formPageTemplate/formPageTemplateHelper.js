@@ -43,6 +43,7 @@
                     "header": "Success!",
                     "message": "Record created/updated successfully!"
                 });
+                window.location.reload(true);
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 component.find("notifLib").showToast({
