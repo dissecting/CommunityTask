@@ -8,18 +8,22 @@ public without sharing class PageFormController {
                                             List<Id> deletedAttachIdsList) {
         Id recordId;
         Id accountId;
-        Boolean isNotEmpty = !fileNameList.isEmpty()
-            && !base64DataList.isEmpty()
-            && !contentTypeList.isEmpty();
 
         if (accountAndContact == null || checkMissedFields(accountAndContact)) {
-            throw new AuraHandledException(label.errMsgFieldsMustBeFilled);
+            AuraHandledException e = new AuraHandledException(label.errMsgFieldsMustBeFilled);
+            e.setMessage(label.errMsgFieldsMustBeFilled);
+            throw e;
         }
         if (checkIncorrectAssign(accountAndContact)) {
-            throw new AuraHandledException(label.errMsgContactsIncorrectAssign);
+            AuraHandledException e = new AuraHandledException(label.errMsgContactsIncorrectAssign);
+            e.setMessage(label.errMsgContactsIncorrectAssign);
+            throw e;
         }
 
         try {
+            Boolean isNotEmpty = !fileNameList.isEmpty()
+                && !base64DataList.isEmpty()
+                && !contentTypeList.isEmpty();
             if (getUserId() != null) {
                 accountId = upsertAccount(accountAndContact, getUserId());
                 if (!checkDuplicateContact(accountAndContact).isEmpty()) {

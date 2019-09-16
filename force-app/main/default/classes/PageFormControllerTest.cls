@@ -167,4 +167,179 @@ private class PageFormControllerTest {
             System.assertEquals(newContactList[0].id, recordId);
         }
     }
+
+    @isTest
+    static void testInsertNotFilledRecords() {
+        PageFormController.ContactWithAccount accountAndContact = new PageFormController.ContactWithAccount();
+        Contact contact = new Contact (
+            LastName = 'TestLastName2',
+            Email__c = 'test2222@uog.com'
+        );
+        Account account = new Account (
+            Name = 'TestName22',
+            FederalTaxId__c = '99299997'
+        );
+        List<Contact> contactList = [
+            SELECT Id
+            FROM Contact
+        ];
+        List<Attachment> listOfAttachments = [
+            SELECT Name, ParentId
+            FROM Attachment
+            WHERE ParentId = :contactList[0].Id
+        ];
+        accountAndContact.account = account;
+        accountAndContact.contact = contact;
+        List<User> userList = [
+            SELECT UserName
+            FROM User
+            WHERE UserName = 'userGuest@t123estorg.com'
+        ];
+        List<String> fileNameList = new List<String> {'test1.txt'};
+        List<String> base64DataList = new List<String> {'MTIz'};
+        List<String> contentTypeList = new List<String> {'text/plain'};
+        List<Id> deletedAttachIdsList = new List<Id> {listOfAttachments[0].Id};
+
+        System.runAs(userList[0]) {
+
+            Test.startTest();
+            try {
+                Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+            } catch (AuraHandledException e) {
+                System.assert(e.getMessage().contains(label.errMsgFieldsMustBeFilled));
+            }
+            Test.stopTest();
+        }
+    }
+
+    @isTest
+    static void testIncorrectAssign() {
+        PageFormController.ContactWithAccount accountAndContact = new PageFormController.ContactWithAccount();
+        Contact contact = new Contact (
+            FirstName = 'test123',
+            LastName = 'TestLastName2',
+            Email__c = 'test@uog.com'
+        );
+        Account account = new Account (
+            Name = 'TestName22',
+            FederalTaxId__c = '19299997'
+        );
+        List<Contact> contactList = [
+            SELECT Id
+            FROM Contact
+        ];
+        List<Attachment> listOfAttachments = [
+            SELECT Name, ParentId
+            FROM Attachment
+            WHERE ParentId = :contactList[0].Id
+        ];
+        accountAndContact.account = account;
+        accountAndContact.contact = contact;
+        List<User> userList = [
+            SELECT UserName
+            FROM User
+            WHERE UserName = 'userGuest@t123estorg.com'
+        ];
+        List<String> fileNameList = new List<String> {'test1.txt'};
+        List<String> base64DataList = new List<String> {'MTIz'};
+        List<String> contentTypeList = new List<String> {'text/plain'};
+        List<Id> deletedAttachIdsList = new List<Id> {listOfAttachments[0].Id};
+
+        System.runAs(userList[0]) {
+
+            Test.startTest();
+            try {
+                Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+            } catch (AuraHandledException e) {
+                System.assert(e.getMessage().contains(label.errMsgContactsIncorrectAssign));
+            }
+            Test.stopTest();
+        }
+    }
+
+    @isTest
+    static void testIncorrectFederalTaxId() {
+        PageFormController.ContactWithAccount accountAndContact = new PageFormController.ContactWithAccount();
+        Contact contact = new Contact (
+            FirstName = 'test123',
+            LastName = 'TestLastName2',
+            Email__c = '123test@uog.com'
+        );
+        Account account = new Account (
+            Name = 'TestName22',
+            FederalTaxId__c = 'qqq'
+        );
+        List<Contact> contactList = [
+            SELECT Id
+            FROM Contact
+        ];
+        List<Attachment> listOfAttachments = [
+            SELECT Name, ParentId
+            FROM Attachment
+            WHERE ParentId = :contactList[0].Id
+        ];
+        accountAndContact.account = account;
+        accountAndContact.contact = contact;
+        List<User> userList = [
+            SELECT UserName
+            FROM User
+            WHERE UserName = 'userGuest@t123estorg.com'
+        ];
+        List<String> fileNameList = new List<String> {'test1.txt'};
+        List<String> base64DataList = new List<String> {'MTIz'};
+        List<String> contentTypeList = new List<String> {'text/plain'};
+        List<Id> deletedAttachIdsList = new List<Id> {listOfAttachments[0].Id};
+
+        System.runAs(userList[0]) {
+
+            Test.startTest();
+            try {
+                Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+            } catch (AuraHandledException e) {
+                System.assertNotEquals(null, e.getMessage());
+            }
+            Test.stopTest();
+        }
+    }
+
+    @isTest
+    static void testIncorrectInsert() {
+        PageFormController.ContactWithAccount accountAndContact = new PageFormController.ContactWithAccount();
+        Contact contact = new Contact (
+            FirstName = 'test123',
+            LastName = 'TestLastName2',
+            Email__c = '123test@uog.com'
+        );
+        Account account = new Account (
+            Name = 'TestName22',
+            FederalTaxId__c = '12345678'
+        );
+        List<Contact> contactList = [
+            SELECT Id
+            FROM Contact
+        ];
+        List<Attachment> listOfAttachments = [
+            SELECT Name, ParentId
+            FROM Attachment
+            WHERE ParentId = :contactList[0].Id
+        ];
+        accountAndContact.account = account;
+        accountAndContact.contact = contact;
+        List<User> userList = [
+            SELECT UserName
+            FROM User
+            WHERE UserName = 'userGuest@t123estorg.com'
+        ];
+
+        System.runAs(userList[0]) {
+
+            Test.startTest();
+            try {
+                Id recordId = PageFormController.createAccountAndContact(accountAndContact, null, null, null, null);
+            } catch (AuraHandledException e) {
+                System.assertNotEquals(null, e.getMessage());
+            }
+            Test.stopTest();
+        }
+    }
 }
