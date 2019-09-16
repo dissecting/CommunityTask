@@ -1,4 +1,4 @@
-<aura:component controller = "PageFormController" implements = "forceCommunity:layout, forceCommunity:availableForAllPageTypes" access = "global">
+<aura:component controller = "PageFormController" implements = "forceCommunity:layout,forceCommunity:availableForAllPageTypes" access = "global">
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}"/>
     <aura:attribute name = "accountAndContact" type = "Object" access = "private"/>
     <aura:attribute name = "fileToBeUploaded" type = "Object" access = "private"/>
@@ -69,56 +69,50 @@
                                             multiple = "false"/>
                         </div>
                         <div class = "slds-grid slds-wrap">
-                            <div class = "slds-col slds-size_1-of-2">
-                                <aura:iteration items = "{!v.fileNameExistList}" var = "fileName">
+                            <aura:iteration items = "{!v.fileNameExistList}" var = "fileName" indexVar = "index">
+                                <div class = "slds-col slds-size_1-of-2">
                                     <div class = "slds-form-element">
-                                        <lightning:button label = "{!fileName}"
-                                                        iconName = "utility:download"
-                                                        iconPosition = "left"
-                                                        variant = "brand"/>
+                                        <lightning:icon iconName = "doctype:image"/>
+                                        <span class = "slds-text-color_success">{!fileName}</span>
                                     </div>
-                                </aura:iteration>
-                            </div>
-                            <div class = "slds-col slds-size_1-of-2">
-                                <aura:iteration items = "{!v.fileIdsExistList}" var = "fileId" indexVar = "index">
+                                </div>
+                                <div class = "slds-col slds-size_1-of-2">
                                     <div class = "slds-form-element">
                                         <lightning:button label = "Delete"
                                                         tabindex = "{!index}"
-                                                        iconName = "utility:download"
+                                                        iconName = "utility:close"
                                                         iconPosition = "left"
                                                         variant = "destructive"
                                                         onclick = "{!c.onDelete}"/>
                                     </div>
-                                </aura:iteration>
-                            </div>
-                            <div class = "slds-col slds-size_1-of-2">
-                                <aura:iteration items = "{!v.fileNameList}" var = "fileName">
+                                </div>
+                            </aura:iteration>
+                            <aura:iteration items = "{!v.fileNameList}" var = "fileName" indexVar = "index">
+                                <div class = "slds-col slds-size_1-of-2">
                                     <div class = "slds-form-element">
-                                        <lightning:button label = "{!fileName}"
-                                                        iconName = "utility:download"
-                                                        iconPosition = "left"
-                                                        variant = "brand"/>
+                                        <lightning:icon iconName = "doctype:image"/>
+                                        <span class = "slds-text-color_success">{!fileName}</span>
                                     </div>
-                                </aura:iteration>
-                            </div>
-                            <div class = "slds-col slds-size_1-of-2">
-                                <aura:iteration items = "{!v.fileNameList}" var = "fileName" indexVar = "index">
+                                </div>
+                                <div class = "slds-col slds-size_1-of-2">
                                     <div class = "slds-form-element">
                                         <lightning:button label = "Delete"
                                                         tabindex = "{!index}"
-                                                        iconName = "utility:download"
+                                                        iconName = "utility:close"
                                                         iconPosition = "left"
                                                         variant = "destructive"
                                                         onclick = "{!c.onRemove}"/>
                                     </div>
-                                </aura:iteration>
-                            </div>
+                                </div>
+                            </aura:iteration>
                         </div>
                     </div>
                     <div class = "slds-align_absolute-center">
                         <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small"
                                     name = "execute"
                                     label = "{!v.executeBtn}"
+                                    iconName = "utility:new"
+                                    iconPosition = "left"
                                     onclick = "{!c.onInsert}"/>
                     </div>
                 </div>

@@ -87,7 +87,7 @@ public without sharing class PageFormController {
             LastName = accountAndContact.contact.LastName,
             Email__c = accountAndContact.contact.Email__c,
             AccountId = accountId,
-            OwnerId = checkUserType() ? ownerId: accountAndContact.contact.OwnerId
+            OwnerId = ownerId
         );
         insert newContact;
 
@@ -170,11 +170,18 @@ public without sharing class PageFormController {
         return isGuest;
     }
 
+    private static Boolean checkCommunityUserType() {
+        String userType = UserInfo.getUserType();
+        Boolean isCommunityUser = userType == 'CspLitePortal';
+
+        return isCommunityUser;
+    }
+
     @AuraEnabled
     public static ContactWithAccount getAssignedContact() {
         ContactWithAccount contactWithAccount = new ContactWithAccount();
 
-        if (!checkUserType()) {
+        if (!checkUserType() && checkCommunityUserType()) {
             List<User> userList = [
                 SELECT UserName, ContactId
                 FROM User
@@ -211,8 +218,7 @@ public without sharing class PageFormController {
 
     @AuraEnabled
     public static Boolean checkCommunityUser() {
-        String userType = UserInfo.getUserType();
-        Boolean isCommunityUser = userType == 'CspLitePortal';
+        Boolean isCommunityUser = checkCommunityUserType();
 
         return isCommunityUser;
     }

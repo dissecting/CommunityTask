@@ -1,4 +1,4 @@
-<aura:component controller = "PageFormController" implements = "forceCommunity:layout, forceCommunity:availableForAllPageTypes" access = "global">
+<aura:component controller = "PageFormController" implements = "forceCommunity:layout,forceCommunity:availableForAllPageTypes" access = "global">
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}"/>
     <aura:attribute name = "onFormBtn" type = "String" default = "Create a Form" access = "private"/>
     <div class="slds-grid slds-wrap">
