@@ -1,5 +1,5 @@
 ({
-    handleInit : function(component, event) {
+    handleInit : function(component) {
         var action = component.get("c.getAssignedContact");
         action.setCallback(this, function(response) {
             var state = response.getState();
@@ -94,13 +94,13 @@
         component.set("v.deletedIdsList", deletedIds);
     },
 
-    handleShow: function (component, event) {
+    handleShow: function (component) {
         var spinner = component.find("mySpinner");
         $A.util.removeClass(spinner, "slds-hide");
         $A.util.addClass(spinner, "slds-show");
     },
 
-    handleHide: function (component, event) {
+    handleHide: function (component) {
         var spinner = component.find("mySpinner");
         $A.util.removeClass(spinner, "slds-show");
         $A.util.addClass(spinner, "slds-hide");

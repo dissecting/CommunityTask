@@ -1,5 +1,5 @@
 ({
-    handleInit : function(component, event) {
+    handleInit : function(component) {
         var action = component.get("c.checkCommunityUser");
         action.setCallback(this, function(response) {
             var state = response.getState();
@@ -16,7 +16,7 @@
         $A.enqueueAction(action);
     },
 
-    handleForm: function(component, event) {
+    handleForm: function() {
         var urlEvent = $A.get("e.force:navigateToURL");
         var formPageUrl = "https://" + window.location.hostname + "/mycompany/s/formpage";
         urlEvent.setParams({

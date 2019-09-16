@@ -1,6 +1,6 @@
 ({
     doInit: function(component, event, helper) {
-        helper.handleInit(component, event, helper);
+        helper.handleInit(component);
     },
 
     onInsert: function(component, event, helper) {
@@ -23,7 +23,7 @@
     },
 
     onFileUploaded: function(component, event, helper) {
-        helper.handleShow(component, event);
+        helper.handleShow(component);
         var files = component.get("v.fileToBeUploaded");
         if (files && files.length > 0) {
             var file = files[0];
@@ -32,11 +32,11 @@
                 var dataURL = reader.result;
                 var content = dataURL.match(/,(.*)$/)[1];
                 helper.handleUpload(component, file, content);
-                helper.handleHide(component, event);
+                helper.handleHide(component);
             }
             reader.readAsDataURL(file);
         } else {
-            helper.handleHide(component, event);
+            helper.handleHide(component);
         }
     }
 })
