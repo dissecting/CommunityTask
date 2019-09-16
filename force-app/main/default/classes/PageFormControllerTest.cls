@@ -179,15 +179,6 @@ private class PageFormControllerTest {
             Name = 'TestName22',
             FederalTaxId__c = '99299997'
         );
-        List<Contact> contactList = [
-            SELECT Id
-            FROM Contact
-        ];
-        List<Attachment> listOfAttachments = [
-            SELECT Name, ParentId
-            FROM Attachment
-            WHERE ParentId = :contactList[0].Id
-        ];
         accountAndContact.account = account;
         accountAndContact.contact = contact;
         List<User> userList = [
@@ -195,10 +186,10 @@ private class PageFormControllerTest {
             FROM User
             WHERE UserName = 'userGuest@t123estorg.com'
         ];
-        List<String> fileNameList = new List<String> {'test1.txt'};
-        List<String> base64DataList = new List<String> {'MTIz'};
-        List<String> contentTypeList = new List<String> {'text/plain'};
-        List<Id> deletedAttachIdsList = new List<Id> {listOfAttachments[0].Id};
+        List<String> fileNameList = new List<String>();
+        List<String> base64DataList = new List<String>();
+        List<String> contentTypeList = new List<String>();
+        List<Id> deletedAttachIdsList = new List<Id>();
 
         System.runAs(userList[0]) {
 
@@ -224,15 +215,6 @@ private class PageFormControllerTest {
             Name = 'TestName22',
             FederalTaxId__c = '19299997'
         );
-        List<Contact> contactList = [
-            SELECT Id
-            FROM Contact
-        ];
-        List<Attachment> listOfAttachments = [
-            SELECT Name, ParentId
-            FROM Attachment
-            WHERE ParentId = :contactList[0].Id
-        ];
         accountAndContact.account = account;
         accountAndContact.contact = contact;
         List<User> userList = [
@@ -240,10 +222,10 @@ private class PageFormControllerTest {
             FROM User
             WHERE UserName = 'userGuest@t123estorg.com'
         ];
-        List<String> fileNameList = new List<String> {'test1.txt'};
-        List<String> base64DataList = new List<String> {'MTIz'};
-        List<String> contentTypeList = new List<String> {'text/plain'};
-        List<Id> deletedAttachIdsList = new List<Id> {listOfAttachments[0].Id};
+        List<String> fileNameList = new List<String>();
+        List<String> base64DataList = new List<String>();
+        List<String> contentTypeList = new List<String>();
+        List<Id> deletedAttachIdsList = new List<Id>();
 
         System.runAs(userList[0]) {
 
@@ -269,15 +251,6 @@ private class PageFormControllerTest {
             Name = 'TestName22',
             FederalTaxId__c = 'qqq'
         );
-        List<Contact> contactList = [
-            SELECT Id
-            FROM Contact
-        ];
-        List<Attachment> listOfAttachments = [
-            SELECT Name, ParentId
-            FROM Attachment
-            WHERE ParentId = :contactList[0].Id
-        ];
         accountAndContact.account = account;
         accountAndContact.contact = contact;
         List<User> userList = [
@@ -285,10 +258,10 @@ private class PageFormControllerTest {
             FROM User
             WHERE UserName = 'userGuest@t123estorg.com'
         ];
-        List<String> fileNameList = new List<String> {'test1.txt'};
-        List<String> base64DataList = new List<String> {'MTIz'};
-        List<String> contentTypeList = new List<String> {'text/plain'};
-        List<Id> deletedAttachIdsList = new List<Id> {listOfAttachments[0].Id};
+        List<String> fileNameList = new List<String>();
+        List<String> base64DataList = new List<String>();
+        List<String> contentTypeList = new List<String>();
+        List<Id> deletedAttachIdsList = new List<Id>();
 
         System.runAs(userList[0]) {
 
@@ -314,15 +287,6 @@ private class PageFormControllerTest {
             Name = 'TestName22',
             FederalTaxId__c = '12345678'
         );
-        List<Contact> contactList = [
-            SELECT Id
-            FROM Contact
-        ];
-        List<Attachment> listOfAttachments = [
-            SELECT Name, ParentId
-            FROM Attachment
-            WHERE ParentId = :contactList[0].Id
-        ];
         accountAndContact.account = account;
         accountAndContact.contact = contact;
         List<User> userList = [
