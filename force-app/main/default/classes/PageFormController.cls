@@ -223,12 +223,16 @@ public without sharing class PageFormController {
         return isCommunityUser;
     }
 
-    private static void createAttachment (List<String> fileNameList, List<String> base64DataList, List<String> contentTypeList, Id recordId) {
+    private static void createAttachment (List<String> fileNameList,
+                                        List<String> base64DataList,
+                                        List<String> contentTypeList,
+                                        Id recordId) {
         List<String> newDataList = new List<String>();
+        List<Attachment> attachmentList = new List<Attachment>();
+
         for (String base64Data : base64DataList) {
             newDataList.add(EncodingUtil.urlDecode(base64Data, 'UTF-8'));
         }
-        List<Attachment> attachmentList = new List<Attachment>();
         for (Integer i = 0; i < fileNameList.size(); i++) {
             Attachment currentAttachment = new Attachment();
             currentAttachment.Body = EncodingUtil.base64Decode(newDataList[i]);
