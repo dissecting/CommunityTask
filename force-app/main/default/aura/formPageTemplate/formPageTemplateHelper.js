@@ -14,7 +14,7 @@
                 }
             } else if (state === "ERROR") {
                 var errors = response.getError();
-                component.find('notifLib').showToast({
+                component.find("notifLib").showToast({
                     "variant": "error",
                     "header": "Error!",
                     "message": errors[0].message
