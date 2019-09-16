@@ -94,7 +94,13 @@ private class PageFormControllerTest {
         System.runAs(userList[0]) {
 
             Test.startTest();
-            Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+            Id recordId = PageFormController.createAccountAndContact(
+                accountAndContact,
+                fileNameList,
+                base64DataList,
+                contentTypeList,
+                deletedAttachIdsList
+            );
             Test.stopTest();
 
             List<Contact> newContactList = new List<Contact>();
@@ -154,7 +160,13 @@ private class PageFormControllerTest {
             PageFormController.checkCommunityUser();
             PageFormController.getAssignedContact();
             Test.startTest();
-            Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+            Id recordId = PageFormController.createAccountAndContact(
+                accountAndContact,
+                fileNameList,
+                base64DataList,
+                contentTypeList,
+                deletedAttachIdsList
+            );
             Test.stopTest();
 
             List<Contact> newContactList = new List<Contact>();
@@ -195,7 +207,13 @@ private class PageFormControllerTest {
 
             Test.startTest();
             try {
-                Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+                Id recordId = PageFormController.createAccountAndContact(
+                    accountAndContact,
+                    fileNameList,
+                    base64DataList,
+                    contentTypeList,
+                    deletedAttachIdsList
+                );
             } catch (AuraHandledException e) {
                 System.assert(e.getMessage().contains(label.errMsgFieldsMustBeFilled));
             }
@@ -231,7 +249,13 @@ private class PageFormControllerTest {
 
             Test.startTest();
             try {
-                Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+                Id recordId = PageFormController.createAccountAndContact(
+                    accountAndContact,
+                    fileNameList,
+                    base64DataList,
+                    contentTypeList,
+                    deletedAttachIdsList
+                );
             } catch (AuraHandledException e) {
                 System.assert(e.getMessage().contains(label.errMsgContactsIncorrectAssign));
             }
@@ -267,7 +291,13 @@ private class PageFormControllerTest {
 
             Test.startTest();
             try {
-                Id recordId = PageFormController.createAccountAndContact(accountAndContact, fileNameList, base64DataList, contentTypeList, deletedAttachIdsList);
+                Id recordId = PageFormController.createAccountAndContact(
+                    accountAndContact,
+                    fileNameList,
+                    base64DataList,
+                    contentTypeList,
+                    deletedAttachIdsList
+                );
             } catch (AuraHandledException e) {
                 System.assertNotEquals(null, e.getMessage());
             }

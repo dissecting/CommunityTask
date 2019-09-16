@@ -1,4 +1,6 @@
-<aura:component controller = "PageFormController" implements = "forceCommunity:layout,forceCommunity:availableForAllPageTypes" access = "global">
+<aura:component controller = "PageFormController"
+                implements = "forceCommunity:layout,forceCommunity:availableForAllPageTypes"
+                access = "global">
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}"/>
     <aura:attribute name = "accountAndContact" type = "Object" access = "private"/>
     <aura:attribute name = "fileToBeUploaded" type = "Object" access = "private"/>
@@ -18,32 +20,37 @@
                 <div class = "slds-m-around--large">
                     <span class = "slds-text-title">Please enter next information!</span>
                     <div class = "slds-form-element slds-is-required">
-                        <lightning:input class = "slds-input" name = "inputCompanyName"
+                        <lightning:input class = "slds-input"
+                                    name = "inputCompanyName"
                                     value = "{!v.accountAndContact.account.Name}"
                                     required = "true"
                                     label = "Company Name"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
-                        <lightning:input class = "slds-input" name = "inputFederalTaxId"
+                        <lightning:input class = "slds-input"
+                                    name = "inputFederalTaxId"
                                     value = "{!v.accountAndContact.account.FederalTaxId__c}"
                                     required = "true"
                                     label = "Federal Tax Id"
                                     disabled = "{!v.isDisabled}"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
-                        <lightning:input class = "slds-input" name = "inputFirstName"
+                        <lightning:input class = "slds-input"
+                                    name = "inputFirstName"
                                     value = "{!v.accountAndContact.contact.FirstName}"
                                     required = "true"
                                     label = "First Name"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
-                        <lightning:input class = "slds-input" name = "inputLastName"
+                        <lightning:input class = "slds-input"
+                                    name = "inputLastName"
                                     value = "{!v.accountAndContact.contact.LastName}"
                                     required = "true"
                                     label = "Last Name"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
-                        <lightning:input class = "slds-input" name = "inputEmail"
+                        <lightning:input class = "slds-input"
+                                    name = "inputEmail"
                                     value = "{!v.accountAndContact.contact.Email__c}"
                                     required = "true"
                                     label = "Email Address"
@@ -51,7 +58,8 @@
                     </div>
                     <div class = "slds-box">
                         <div class = "slds-grid slds-wrap">
-                            <lightning:input aura:id = "file-inputDriverLicense" type = "file"
+                            <lightning:input aura:id = "file-inputDriverLicense"
+                                            type = "file"
                                             files = "{!v.fileToBeUploaded}"
                                             onchange = "{!c.onFileUploaded}"
                                             accept = ".txt, .jpg, .jpeg, .png, .xml"
@@ -60,7 +68,8 @@
                                             multiple = "false"/>
                         </div>
                         <div class = "slds-grid slds-wrap">
-                            <lightning:input aura:id = "file-inputResume" type = "file"
+                            <lightning:input aura:id = "file-inputResume"
+                                            type = "file"
                                             files = "{!v.fileToBeUploaded}"
                                             onchange = "{!c.onFileUploaded}"
                                             accept = ".txt, .jpg, .jpeg, .png, .xml"
@@ -109,11 +118,11 @@
                     </div>
                     <div class = "slds-align_absolute-center">
                         <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small"
-                                    name = "execute"
-                                    label = "{!v.executeBtn}"
-                                    iconName = "utility:new"
-                                    iconPosition = "left"
-                                    onclick = "{!c.onInsert}"/>
+                                        name = "execute"
+                                        label = "{!v.executeBtn}"
+                                        iconName = "utility:new"
+                                        iconPosition = "left"
+                                        onclick = "{!c.onInsert}"/>
                     </div>
                 </div>
             </article>
