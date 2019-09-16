@@ -23,8 +23,8 @@
     },
 
     onFileUploaded: function(component, event, helper) {
-        helper.handleShow(component);
         var files = component.get("v.fileToBeUploaded");
+        helper.handleShow(component);
         if (files && files.length > 0) {
             var file = files[0];
             var reader = new FileReader();
