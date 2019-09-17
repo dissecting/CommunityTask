@@ -24,14 +24,14 @@
                                     name = "inputCompanyName"
                                     value = "{!v.accountAndContact.account.Name}"
                                     required = "true"
-                                    label = "Company Name"/>
+                                    label = "{!$Label.c.companyNameLabel}"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
                         <lightning:input class = "slds-input"
                                     name = "inputFederalTaxId"
                                     value = "{!v.accountAndContact.account.FederalTaxId__c}"
                                     required = "true"
-                                    label = "Federal Tax Id"
+                                    label = "{!$Label.c.federalTaxIdLabel}"
                                     disabled = "{!v.isDisabled}"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
@@ -39,21 +39,21 @@
                                     name = "inputFirstName"
                                     value = "{!v.accountAndContact.contact.FirstName}"
                                     required = "true"
-                                    label = "First Name"/>
+                                    label = "{!$Label.c.firstNameLabel}"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
                         <lightning:input class = "slds-input"
                                     name = "inputLastName"
                                     value = "{!v.accountAndContact.contact.LastName}"
                                     required = "true"
-                                    label = "Last Name"/>
+                                    label = "{!$Label.c.lastNameLabel}"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
                         <lightning:input class = "slds-input"
                                     name = "inputEmail"
                                     value = "{!v.accountAndContact.contact.Email__c}"
                                     required = "true"
-                                    label = "Email Address"
+                                    label = "{!$Label.c.emailAddressLabel}"
                                     disabled = "{!v.isDisabled}"/>
                     </div>
                     <div class = "slds-box">

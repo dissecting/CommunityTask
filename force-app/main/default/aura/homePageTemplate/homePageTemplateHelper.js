@@ -6,7 +6,7 @@
             console.log(response.getState());
             if (state === "SUCCESS") {
                 if (response.getReturnValue()) {
-                  component.set("v.onFormBtn", "Update a Form");
+                  component.set("v.onFormBtn", $A.get("$Label.c.updateFormLabel"));
                 }
             } else if (state === "ERROR") {
                 var errors = response.getError();
@@ -18,7 +18,7 @@
 
     handleForm: function() {
         var urlEvent = $A.get("e.force:navigateToURL");
-        var formPageUrl = window.location.hostname + $A.get("$Label.c.formPageUrl");;
+        var formPageUrl = window.location.hostname + $A.get("$Label.c.formPageUrl");
         urlEvent.setParams({
           "url": formPageUrl
         });
