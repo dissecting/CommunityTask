@@ -18,7 +18,7 @@
         <div class = "slds-col slds-size_4-of-4 slds-align_absolute-center">
             <article class = "slds-card">
                 <div class = "slds-m-around--large">
-                    <span class = "slds-text-title">Please enter next information!</span>
+                    <span class = "slds-text-title">{!$Label.c.formTitle}</span>
                     <div class = "slds-form-element slds-is-required">
                         <lightning:input class = "slds-input"
                                     name = "inputCompanyName"
@@ -62,7 +62,7 @@
                                             type = "file"
                                             files = "{!v.fileToBeUploaded}"
                                             onchange = "{!c.onFileUploaded}"
-                                            accept = ".txt, .jpg, .jpeg, .png, .xml"
+                                            accept = "{!$Label.c.fileFormats}"
                                             label = "Driver License"
                                             name = "fileDriverLicense"
                                             multiple = "false"/>
@@ -72,7 +72,7 @@
                                             type = "file"
                                             files = "{!v.fileToBeUploaded}"
                                             onchange = "{!c.onFileUploaded}"
-                                            accept = ".txt, .jpg, .jpeg, .png, .xml"
+                                            accept = "{!$Label.c.fileFormats}"
                                             label = "Resume"
                                             name = "fileResume"
                                             multiple = "false"/>

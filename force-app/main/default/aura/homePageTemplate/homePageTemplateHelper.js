@@ -18,7 +18,7 @@
 
     handleForm: function() {
         var urlEvent = $A.get("e.force:navigateToURL");
-        var formPageUrl = "https://" + window.location.hostname + "/mycompany/s/formpage";
+        var formPageUrl = window.location.hostname + $A.get("$Label.c.formPageUrl");;
         urlEvent.setParams({
           "url": formPageUrl
         });
