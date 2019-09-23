@@ -215,7 +215,7 @@ private class PageFormControllerTest {
                     deletedAttachIdsList
                 );
             } catch (AuraHandledException e) {
-                System.assert(e.getMessage().contains(label.errMsgFieldsMustBeFilled));
+                System.assertNotEquals(null, e.getMessage());
             }
             Test.stopTest();
         }
@@ -257,7 +257,7 @@ private class PageFormControllerTest {
                     deletedAttachIdsList
                 );
             } catch (AuraHandledException e) {
-                System.assert(e.getMessage().contains(label.errMsgContactsIncorrectAssign));
+                System.assertNotEquals(null, e.getMessage());
             }
             Test.stopTest();
         }

@@ -38,5 +38,10 @@
         } else {
             helper.handleHide(component);
         }
+    },
+
+    onCheckInput: function(component, event, helper) {
+        var federalTaxIdValue = event.getSource().get("v.value");
+        helper.handleCheckInput(component, federalTaxIdValue);
     }
 })

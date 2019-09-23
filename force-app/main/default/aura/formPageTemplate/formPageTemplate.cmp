@@ -1,6 +1,4 @@
-<aura:component controller = "PageFormController"
-                implements = "forceCommunity:layout,forceCommunity:availableForAllPageTypes"
-                access = "global">
+<aura:component controller = "PageFormController" implements = "forceCommunity:layout,forceCommunity:availableForAllPageTypes" access = "global">
     <aura:handler name = "init" value = "{!this}" action = "{!c.doInit}"/>
     <aura:attribute name = "accountAndContact" type = "Object" access = "private"/>
     <aura:attribute name = "fileToBeUploaded" type = "Object" access = "private"/>
@@ -12,13 +10,16 @@
     <aura:attribute name = "fileNameList" type = "String[]"/>
     <aura:attribute name = "base64DataList" type = "String[]"/>
     <aura:attribute name = "contentTypeList" type = "String[]"/>
+    <aura:attribute name = "digitCount" type = "String" default = "********"/>
     <lightning:notificationsLibrary aura:id = "notifLib"/>
     <lightning:spinner aura:id = "mySpinner" class = "slds-hide"/>
     <div class = "slds-grid slds-wrap">
-        <div class = "slds-col slds-size_4-of-4 slds-align_absolute-center">
+        <div class = "slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-align_absolute-center">
             <article class = "slds-card">
                 <div class = "slds-m-around--large">
-                    <span class = "slds-text-title">{!$Label.c.formTitle}</span>
+                    <span class = "slds-text-title slds-align_absolute-center">
+                        {!$Label.c.formTitle}
+                    </span>
                     <div class = "slds-form-element slds-is-required">
                         <lightning:input class = "slds-input"
                                     name = "inputCompanyName"
@@ -31,7 +32,11 @@
                                     name = "inputFederalTaxId"
                                     value = "{!v.accountAndContact.account.FederalTaxId__c}"
                                     required = "true"
-                                    label = "{!$Label.c.federalTaxIdLabel}"
+                                    label = "{!$Label.c.federalTaxIdLabel + ' ' + v.digitCount}"
+                                    pattern = "[0-9]{8}"
+                                    messageWhenPatternMismatch = "Federal Tax Id should be eight-digit!"
+                                    maxlength = "8"
+                                    onchange = "{!c.onCheckInput}"
                                     disabled = "{!v.isDisabled}"/>
                     </div>
                     <div class = "slds-form-element slds-is-required">
@@ -57,7 +62,7 @@
                                     disabled = "{!v.isDisabled}"/>
                     </div>
                     <div class = "slds-box">
-                        <div class = "slds-grid slds-wrap">
+                        <div class = "input-driver-license">
                             <lightning:input aura:id = "file-inputDriverLicense"
                                             type = "file"
                                             files = "{!v.fileToBeUploaded}"
@@ -67,7 +72,7 @@
                                             name = "fileDriverLicense"
                                             multiple = "false"/>
                         </div>
-                        <div class = "slds-grid slds-wrap">
+                        <div class = "input-resume">
                             <lightning:input aura:id = "file-inputResume"
                                             type = "file"
                                             files = "{!v.fileToBeUploaded}"
@@ -77,44 +82,40 @@
                                             name = "fileResume"
                                             multiple = "false"/>
                         </div>
-                        <div class = "slds-grid slds-wrap">
-                            <aura:iteration items = "{!v.fileNameExistList}" var = "fileName" indexVar = "index">
-                                <div class = "slds-col slds-size_1-of-2">
-                                    <div class = "slds-form-element">
-                                        <lightning:icon iconName = "doctype:image"/>
-                                        <span class = "slds-text-color_success">{!fileName}</span>
-                                    </div>
-                                </div>
-                                <div class = "slds-col slds-size_1-of-2">
-                                    <div class = "slds-form-element">
-                                        <lightning:button label = "Delete"
-                                                        tabindex = "{!index}"
-                                                        iconName = "utility:close"
-                                                        iconPosition = "left"
-                                                        variant = "destructive"
-                                                        onclick = "{!c.onDelete}"/>
-                                    </div>
-                                </div>
-                            </aura:iteration>
-                            <aura:iteration items = "{!v.fileNameList}" var = "fileName" indexVar = "index">
-                                <div class = "slds-col slds-size_1-of-2">
-                                    <div class = "slds-form-element">
-                                        <lightning:icon iconName = "doctype:image"/>
-                                        <span class = "slds-text-color_success">{!fileName}</span>
-                                    </div>
-                                </div>
-                                <div class = "slds-col slds-size_1-of-2">
-                                    <div class = "slds-form-element">
-                                        <lightning:button label = "Delete"
-                                                        tabindex = "{!index}"
-                                                        iconName = "utility:close"
-                                                        iconPosition = "left"
-                                                        variant = "destructive"
-                                                        onclick = "{!c.onRemove}"/>
-                                    </div>
-                                </div>
-                            </aura:iteration>
-                        </div>
+                    </div>
+                    <div class = "slds-grid slds-wrap slds-align_absolute-center" id = "fileListId">
+                        <aura:iteration items = "{!v.fileNameExistList}" var = "fileName" indexVar = "index">
+                            <div class = "slds-col slds-size_7-of-12">
+                                <lightning:helptext iconName = "doctype:image" content = "{!fileName}"/>
+                                <span class = "slds-text-color_success">
+                                    {!fileName}
+                                </span>
+                            </div>
+                            <div id = "deleteBtnId" class = "slds-col slds-size_5-of-12">
+                                <lightning:button label = "Delete"
+                                                tabindex = "{!index}"
+                                                iconName = "utility:close"
+                                                iconPosition = "left"
+                                                variant = "destructive"
+                                                onclick = "{!c.onDelete}"/>
+                            </div>
+                        </aura:iteration>
+                        <aura:iteration items = "{!v.fileNameList}" var = "fileName" indexVar = "index">
+                            <div class = "slds-col slds-size_7-of-12">
+                                <lightning:helptext iconName = "doctype:image" content = "{!fileName}"/>
+                                <span class = "slds-text-color_success">
+                                    {!fileName}
+                                </span>
+                            </div>
+                            <div id = "deleteBtnId" class = "slds-col slds-size_5-of-12">
+                                <lightning:button label = "Delete"
+                                                tabindex = "{!index}"
+                                                iconName = "utility:close"
+                                                iconPosition = "left"
+                                                variant = "destructive"
+                                                onclick = "{!c.onRemove}"/>
+                            </div>
+                        </aura:iteration>
                     </div>
                     <div class = "slds-align_absolute-center">
                         <lightning:button class = "slds-button slds-button_brand slds-m-around_x-small"

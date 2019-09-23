@@ -10,14 +10,10 @@ public without sharing class PageFormController {
         Id accountId;
 
         if (accountAndContact == null || checkMissedFields(accountAndContact)) {
-            AuraHandledException e = new AuraHandledException(label.errMsgFieldsMustBeFilled);
-            e.setMessage(label.errMsgFieldsMustBeFilled);
-            throw e;
+            throw new AuraHandledException(Label.errMsgFieldsMustBeFilled);
         }
         if (checkIncorrectAssign(accountAndContact)) {
-            AuraHandledException e = new AuraHandledException(label.errMsgContactsIncorrectAssign);
-            e.setMessage(label.errMsgContactsIncorrectAssign);
-            throw e;
+            throw new AuraHandledException(Label.errMsgContactsIncorrectAssign);
         }
 
         try {

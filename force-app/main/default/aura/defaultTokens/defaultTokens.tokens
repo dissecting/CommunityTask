@@ -1,0 +1,15 @@
+<aura:tokens>
+	<aura:token name = "divMarginTop" value = "5px"/>
+    <aura:token name = "divFormElementHeight" value = "100px"/>
+    <aura:token name = "divFormInputFile" value = "50px"/>
+    <aura:token name = "divFormElementWidth" value = "100%"/>
+    <aura:token name = "divFileListWidth" value = "300px"/>
+    <aura:token name = "fontWeightBold" value = "bold"/>
+    <aura:token name = "fontSizeLarge" value = "large"/>
+    <aura:token name = "spanDisplayText" value = "block"/>
+    <aura:token name = "spanTextOverflow" value = "ellipsis"/>
+    <aura:token name = "spanOverflow" value = "hidden"/>
+    <aura:token name = "spanWhiteSpaceText" value = "nowrap"/>
+    <aura:token name = "spanWidthText" value = "50%"/>
+    <aura:token name = "divTextAlignRight" value = "right"/>
+</aura:tokens>

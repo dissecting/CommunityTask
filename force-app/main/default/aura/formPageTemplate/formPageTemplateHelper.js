@@ -104,5 +104,30 @@
         var spinner = component.find("mySpinner");
         $A.util.removeClass(spinner, "slds-show");
         $A.util.addClass(spinner, "slds-hide");
+    },
+
+    handleCheckInput: function (component, federalTaxIdValue) {
+        var federalTaxId = component.get("v.accountAndContact.account.FederalTaxId__c");
+        var digitCount = component.get("v.digitCount");
+        if ((!Number(federalTaxIdValue) && federalTaxIdValue != 0) || federalTaxIdValue.includes(".") || federalTaxIdValue.includes(" ")) {
+            component.find("notifLib").showToast({
+                "variant": "error",
+                "header": "Error!",
+                "message": "Federal Tax Id should be eight-digit!"
+            });
+            component.set("v.accountAndContact.account.FederalTaxId__c", federalTaxId.substring(0, federalTaxId.length - 1));
+            federalTaxId = federalTaxId.substring(0, federalTaxId.length - 1);
+        }
+
+        digitCount = federalTaxId.length == 8 ? "" : digitCount;
+        digitCount = federalTaxId.length == 7 ? "*" : digitCount;
+        digitCount = federalTaxId.length == 6 ? "**" : digitCount;
+        digitCount = federalTaxId.length == 5 ? "***" : digitCount;
+        digitCount = federalTaxId.length == 4 ? "****" : digitCount;
+        digitCount = federalTaxId.length == 3 ? "*****" : digitCount;
+        digitCount = federalTaxId.length == 2 ? "******" : digitCount;
+        digitCount = federalTaxId.length == 1 ? "*******" : digitCount;
+        digitCount = federalTaxId.length < 1 ? "********" : digitCount;
+        component.set("v.digitCount", digitCount);
     }
 })

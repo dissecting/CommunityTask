@@ -1,14 +1,51 @@
 .THIS .slds-form-element {
-    margin-top:5px;
-    font-weight: bold;
+    margin-top: token(divMarginTop);
+    font-weight: token(fontWeightBold);
+    height: token(divFormElementHeight);
+    max-height: token(divFormElementHeight);
+    max-width: token(divFormElementWidth);
 }
 
 .THIS .slds-box {
-    margin-top:5px;
-    font-weight: bold;
+    margin-top: token(divMarginTop);
+    font-weight: token(fontWeightBold);
+    width: token(divFormElementWidth);
+    max-width: token(divFormElementWidth);
 }
 
 .THIS .slds-text-title {
-    font-weight: bold;
-    font-size: large;
+    font-weight: token(fontWeightBold);
+    font-size: token(fontSizeLarge);
+}
+
+.THIS .slds-card {
+    width: token(divFormElementWidth);
+    max-width: token(divFormElementWidth);
+}
+
+.THIS .input-driver-license {
+    height: token(divFormInputFile);
+    max-height: token(divFormInputFile);
+}
+
+.THIS .input-resume {
+    height: token(divFormInputFile);
+    max-height: token(divFormInputFile);
+}
+
+.THIS #fileListId {
+    margin-top: token(divMarginTop);
+    max-width: token(divFileListWidth);
+}
+
+.THIS .slds-text-color_success {
+    display: token(spanDisplayText);
+    max-width: token(spanWidthText);
+    white-space: token(spanWhiteSpaceText);
+    overflow: token(spanOverflow);
+    text-overflow: token(spanTextOverflow);
+}
+
+.THIS #deleteBtnId {
+    text-align: token(divTextAlignRight);
 }
