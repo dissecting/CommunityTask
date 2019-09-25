@@ -128,7 +128,7 @@
 
     handleCheckInput: function (component, federalTaxIdValue) {
         var federalTaxId = component.get("v.accountAndContact.account.FederalTaxId__c");
-        var digitCount = component.get("v.digitCount");
+        var digitCount = "";
         var isVF = component.get("v.isVF");
         if ((!Number(federalTaxIdValue) && federalTaxIdValue != 0) || federalTaxIdValue.includes(".") || federalTaxIdValue.includes(" ")) {
             if (!isVF) {
@@ -146,15 +146,10 @@
             federalTaxId = federalTaxId.substring(0, federalTaxId.length - 1);
         }
 
-        digitCount = federalTaxId.length == 8 ? "" : digitCount;
-        digitCount = federalTaxId.length == 7 ? "*" : digitCount;
-        digitCount = federalTaxId.length == 6 ? "**" : digitCount;
-        digitCount = federalTaxId.length == 5 ? "***" : digitCount;
-        digitCount = federalTaxId.length == 4 ? "****" : digitCount;
-        digitCount = federalTaxId.length == 3 ? "*****" : digitCount;
-        digitCount = federalTaxId.length == 2 ? "******" : digitCount;
-        digitCount = federalTaxId.length == 1 ? "*******" : digitCount;
-        digitCount = federalTaxId.length < 1 ? "********" : digitCount;
+        for (var i = federalTaxId.length; i < 8; i++) {
+            digitCount += "*";
+        }
+
         component.set("v.digitCount", digitCount);
     }
 })
