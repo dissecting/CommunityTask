@@ -1,0 +1,14 @@
+<apex:page>
+    <apex:includeLightning />
+    <div id = "lightning" />
+    <script>
+        $Lightning.use("c:MyCompanyApp", function() {
+            $Lightning.createComponent(
+                "c:formPageTemplate",
+                { isVF: true },
+                "lightning"
+          );
+        });
+    </script>
+    <apex:stylesheet value = "{!URLFOR($Resource.tooltipStyle)}"/>
+</apex:page>

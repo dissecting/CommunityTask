@@ -7,12 +7,30 @@
     <aura:attribute name = "fileIdsExistList" type = "Id[]" access = "private"/>
     <aura:attribute name = "deletedIdsList" type = "Id[]" access = "private"/>
     <aura:attribute name = "fileNameExistList" type = "String[]" access = "private"/>
+    <aura:attribute name = "isVF" type = "Boolean" default = "false"/>
+    <aura:attribute name = "msg" type = "String"/>
+    <aura:attribute name = "isError" type = "Boolean" default = "false"/>
+    <aura:attribute name = "isConfirm" type = "Boolean" default = "false"/>
     <aura:attribute name = "fileNameList" type = "String[]"/>
     <aura:attribute name = "base64DataList" type = "String[]"/>
     <aura:attribute name = "contentTypeList" type = "String[]"/>
     <aura:attribute name = "digitCount" type = "String" default = "********"/>
     <lightning:notificationsLibrary aura:id = "notifLib"/>
     <lightning:spinner aura:id = "mySpinner" class = "slds-hide"/>
+    <aura:if isTrue = "{!v.isVF}">
+        <div class = "slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-align_absolute-center">
+            <aura:if isTrue = "{!v.isError}">
+                <ui:message title = "Error" severity = "error" closable = "true">
+                    {!v.msg}
+                </ui:message>
+            </aura:if>
+            <aura:if isTrue = "{!v.isConfirm}">
+                <ui:message title = "Confirmation" severity = "confirm" closable = "true">
+                    {!v.msg}
+                </ui:message>
+            </aura:if>
+        </div>
+    </aura:if>
     <div class = "slds-grid slds-wrap">
         <div class = "slds-col slds-small-size_12-of-12 slds-medium-size_6-of-12 slds-large-size_4-of-12 slds-align_absolute-center">
             <article class = "slds-card">

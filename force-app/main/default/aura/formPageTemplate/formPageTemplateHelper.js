@@ -14,11 +14,17 @@
                 }
             } else if (state === "ERROR") {
                 var errors = response.getError();
-                component.find("notifLib").showToast({
-                    "variant": "error",
-                    "header": "Error!",
-                    "message": errors[0].message
-                });
+                var isVF = component.get("v.isVF");
+                if (!isVF) {
+                    component.find("notifLib").showToast({
+                        "variant": "error",
+                        "header": "Error!",
+                        "message": errors[0].message
+                    });
+                } else {
+                    component.set("v.isError", true);
+                    component.set("v.msg", errors[0].message);
+                }
                 console.error(errors);
             }
         });
@@ -27,6 +33,7 @@
 
     handleInsert: function(component, accountAndContact, fileNameList, contentTypeList, base64DataList, deletedIdsList) {
         var action = component.get("c.createAccountAndContact");
+        var isVF = component.get("v.isVF");
         action.setParams({
             accountAndContact: accountAndContact,
             fileNameList: fileNameList,
@@ -38,19 +45,32 @@
             var state = response.getState();
             console.log(response.getState());
             if (state === "SUCCESS") {
-                component.find("notifLib").showToast({
-                    "variant": "success",
-                    "header": "Success!",
-                    "message": "Record created/updated successfully!"
-                });
+                if (!isVF) {
+                    component.find("notifLib").showToast({
+                        "variant": "success",
+                        "header": "Success!",
+                        "message": "Record created/updated successfully!"
+                    });
+                } else {
+                    component.set("v.isConfirm", true);
+                    component.set("v.isError", false);
+                    component.set("v.msg", errors[0].message);
+                }
+
                 window.location.reload(true);
             } else if (state === "ERROR") {
                 var errors = response.getError();
-                component.find("notifLib").showToast({
-                    "variant": "error",
-                    "header": "Error!",
-                    "message": errors[0].message
-                });
+                if (!isVF) {
+                    component.find("notifLib").showToast({
+                        "variant": "error",
+                        "header": "Error!",
+                        "message": errors[0].message
+                    });
+                } else {
+                    component.set("v.isConfirm", false);
+                    component.set("v.isError", true);
+                    component.set("v.msg", errors[0].message);
+                }
                 console.error(errors);
             }
         });
@@ -109,12 +129,19 @@
     handleCheckInput: function (component, federalTaxIdValue) {
         var federalTaxId = component.get("v.accountAndContact.account.FederalTaxId__c");
         var digitCount = component.get("v.digitCount");
+        var isVF = component.get("v.isVF");
         if ((!Number(federalTaxIdValue) && federalTaxIdValue != 0) || federalTaxIdValue.includes(".") || federalTaxIdValue.includes(" ")) {
-            component.find("notifLib").showToast({
-                "variant": "error",
-                "header": "Error!",
-                "message": "Federal Tax Id should be eight-digit!"
-            });
+            if (!isVF) {
+                component.find("notifLib").showToast({
+                    "variant": "error",
+                    "header": "Error!",
+                    "message": "Federal Tax Id should be eight-digit!"
+                });
+            } else {
+                component.set("v.isConfirm", false);
+                component.set("v.isError", true);
+                component.set("v.msg", "Federal Tax Id should be eight-digit!");
+            }
             component.set("v.accountAndContact.account.FederalTaxId__c", federalTaxId.substring(0, federalTaxId.length - 1));
             federalTaxId = federalTaxId.substring(0, federalTaxId.length - 1);
         }
