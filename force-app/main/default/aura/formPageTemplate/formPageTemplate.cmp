@@ -14,6 +14,7 @@
     <aura:attribute name = "fileNameList" type = "String[]"/>
     <aura:attribute name = "base64DataList" type = "String[]"/>
     <aura:attribute name = "contentTypeList" type = "String[]"/>
+    <aura:attribute name = "federalTaxIdmaxlength" type = "Integer" default = "8"/>
     <aura:attribute name = "digitCount" type = "String" default = "********"/>
     <lightning:notificationsLibrary aura:id = "notifLib"/>
     <lightning:spinner aura:id = "mySpinner" class = "slds-hide"/>
@@ -40,6 +41,7 @@
                     </span>
                     <div class = "slds-form-element slds-is-required">
                         <lightning:input class = "slds-input"
+                                    aura:id = "companyName"
                                     name = "inputCompanyName"
                                     value = "{!v.accountAndContact.account.Name}"
                                     required = "true"
@@ -53,7 +55,7 @@
                                     label = "{!$Label.c.federalTaxIdLabel + ' ' + v.digitCount}"
                                     pattern = "[0-9]{8}"
                                     messageWhenPatternMismatch = "Federal Tax Id should be eight-digit!"
-                                    maxlength = "8"
+                                    maxlength = "{!v.federalTaxIdmaxlength}"
                                     onchange = "{!c.onCheckInput}"
                                     disabled = "{!v.isDisabled}"/>
                     </div>

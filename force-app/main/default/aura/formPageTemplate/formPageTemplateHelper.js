@@ -128,9 +128,13 @@
 
     handleCheckInput: function (component, federalTaxIdValue) {
         var federalTaxId = component.get("v.accountAndContact.account.FederalTaxId__c");
+        var federalTaxIdmaxlength = component.get("v.federalTaxIdmaxlength");
         var digitCount = "";
         var isVF = component.get("v.isVF");
-        if ((!Number(federalTaxIdValue) && federalTaxIdValue != 0) || federalTaxIdValue.includes(".") || federalTaxIdValue.includes(" ")) {
+        var isValidValue = (!Number(federalTaxIdValue) && federalTaxIdValue != 0)
+            || federalTaxIdValue.includes(".")
+            || federalTaxIdValue.includes(" ");
+        if (isValidValue) {
             if (!isVF) {
                 component.find("notifLib").showToast({
                     "variant": "error",
@@ -146,7 +150,7 @@
             federalTaxId = federalTaxId.substring(0, federalTaxId.length - 1);
         }
 
-        for (var i = federalTaxId.length; i < 8; i++) {
+        for (var i = federalTaxId.length; i < federalTaxIdmaxlength; i++) {
             digitCount += "*";
         }
 
