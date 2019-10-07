@@ -54,7 +54,7 @@
                 } else {
                     component.set("v.isConfirm", true);
                     component.set("v.isError", false);
-                    component.set("v.msg", errors[0].message);
+                    component.set("v.msg", "Record created/updated successfully!");
                 }
 
                 window.location.reload(true);
