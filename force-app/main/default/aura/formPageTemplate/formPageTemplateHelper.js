@@ -3,7 +3,7 @@
         var action = component.get("c.getAssignedContact");
         action.setCallback(this, function(response) {
             var state = response.getState();
-            console.log(response.getState());
+
             if (state === "SUCCESS") {
                 component.set("v.accountAndContact", response.getReturnValue());
                 component.set("v.fileNameExistList", response.getReturnValue().attachmentNamesList);
@@ -16,11 +16,7 @@
                 var errors = response.getError();
                 var isVF = component.get("v.isVF");
                 if (!isVF) {
-                    component.find("notifLib").showToast({
-                        "variant": "error",
-                        "header": "Error!",
-                        "message": errors[0].message
-                    });
+                    this.handleShowToast(component, state, errors[0].message);
                 } else {
                     component.set("v.isError", true);
                     component.set("v.msg", errors[0].message);
@@ -29,6 +25,16 @@
             }
         });
         $A.enqueueAction(action);
+    },
+
+    handleShowToast: function(component, msgType, msg) {
+        var toastEvent = $A.get("e.force:showToast");
+        toastEvent.setParams({
+            "title": msgType === "SUCCESS" ? "Success!": "Error!",
+            "type": msgType === "SUCCESS" ? "success": "error",
+            "message": msg
+        });
+        toastEvent.fire();
     },
 
     handleInsert: function(component, accountAndContact, fileNameList, contentTypeList, base64DataList, deletedIdsList) {
@@ -43,31 +49,23 @@
         });
         action.setCallback(this, function(response) {
             var state = response.getState();
-            console.log(response.getState());
+
             if (state === "SUCCESS") {
+                var msgSuccess = "Record created/updated successfully!";
                 if (!isVF) {
-                    component.find("notifLib").showToast({
-                        "variant": "success",
-                        "header": "Success!",
-                        "message": "Record created/updated successfully!"
-                    });
+                    this.handleShowToast(component, state, msgSuccess);
                 } else {
                     component.set("v.isConfirm", true);
                     component.set("v.isError", false);
-                    component.set("v.msg", "Record created/updated successfully!");
+                    component.set("v.msg", msgSuccess);
                 }
 
                 window.location.reload(true);
             } else if (state === "ERROR") {
                 var errors = response.getError();
                 if (!isVF) {
-                    component.find("notifLib").showToast({
-                        "variant": "error",
-                        "header": "Error!",
-                        "message": errors[0].message
-                    });
+                    this.handleShowToast(component, state, errors[0].message);
                 } else {
-                    component.set("v.isConfirm", false);
                     component.set("v.isError", true);
                     component.set("v.msg", errors[0].message);
                 }
@@ -135,16 +133,13 @@
             || federalTaxIdValue.includes(".")
             || federalTaxIdValue.includes(" ");
         if (isValidValue) {
+            var msgError = "Federal Tax Id should be eight-digit!";
+            var stateError = "ERROR";
             if (!isVF) {
-                component.find("notifLib").showToast({
-                    "variant": "error",
-                    "header": "Error!",
-                    "message": "Federal Tax Id should be eight-digit!"
-                });
+                this.handleShowToast(component, stateError, msgError);
             } else {
-                component.set("v.isConfirm", false);
                 component.set("v.isError", true);
-                component.set("v.msg", "Federal Tax Id should be eight-digit!");
+                component.set("v.msg", msgError);
             }
             component.set("v.accountAndContact.account.FederalTaxId__c", federalTaxId.substring(0, federalTaxId.length - 1));
             federalTaxId = federalTaxId.substring(0, federalTaxId.length - 1);

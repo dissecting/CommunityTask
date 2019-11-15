@@ -3,7 +3,7 @@
         var action = component.get("c.checkCommunityUser");
         action.setCallback(this, function(response) {
             var state = response.getState();
-            console.log(response.getState());
+
             if (state === "SUCCESS") {
                 if (response.getReturnValue()) {
                   component.set("v.onFormBtn", $A.get("$Label.c.updateFormLabel"));

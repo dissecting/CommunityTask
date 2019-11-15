@@ -1,3 +1,3 @@
-<aura:application extends = "ltng:outApp">
-    <aura:dependency resource = "c:formPageTemplate"/>
+<aura:application extends="ltng:outApp">
+    <aura:dependency resource="c:formPageTemplate"/>
 </aura:application>
